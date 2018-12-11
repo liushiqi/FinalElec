@@ -68,3 +68,6 @@ xst/
 _ngo/
 _xmsgs/
 
+*.cache
+*.hw
+*.ip_user_files
