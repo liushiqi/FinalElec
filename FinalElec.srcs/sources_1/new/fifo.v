@@ -11,10 +11,14 @@
 //% FIFO chip of fifferent data width with two directions. The direction will be determined when rst is set to 1.
 //% if direction is 0, data will be sent from narrow_port to wide_port, if direction is 1, the behavior is different.
 module fifo(
+  //% the status of fifo will be updated at the edge of clock signal.
   //% clock input.
-  //% 
   input clk,
-  input rst, //% reset signal. The buffer will be set to 0 if reset.
+  //% The buffer will be set to 0 if reset. direction will be changed.
+  //% reset signal.
+  input rst,
+  //% if is 1, data will flow from 
+  //% controls the direction of fifo.
   input dir,
   input [3:0] narrow_port_in,
   input [7:0] wide_port_in,
