@@ -12,6 +12,9 @@ module test();
   wire input_enable, output_valid;
   integer i;
 
+  assign narrow = narrow_buffer;
+  assign wide = wide_buffer;
+
   initial begin
     clk = 0;
     rst = 1;
@@ -43,8 +46,5 @@ module test();
     i = i + 1;
   end
 
-  fifo fifo(clk, rst, dir, narrow, wide, input_valid, output_enable, input_enable, output_valid);
-
-  assign narrow = narrow_buffer;
-  assign wide = wide_buffer;
+  fifo fifo(clk, rst, dir, narrow_buffer, wide_buffer, input_valid, output_enable, input_enable, output_valid);
 endmodule // test
