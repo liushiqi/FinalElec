@@ -1,0 +1,186 @@
+\hypertarget{enumfifo}{}\section{fifo Module Reference}
+\label{enumfifo}\index{fifo@{fifo}}
+Inheritance diagram for fifo\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d0/dcc/enumfifo}
+\end{center}
+\end{figure}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{enumfifo_aa8122a479ce4de857afe9320219cfa5a}{A\+L\+W\+A\+Y\+S\+\_\+0}} rst
+\begin{DoxyCompactList}\small\item\em Reset part. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{enumfifo_a45eb09cdeb334de587d997e4c9f2d6db}{A\+L\+W\+A\+Y\+S\+\_\+1}} clk
+\begin{DoxyCompactList}\small\item\em Clock part. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{enumfifo_ae0fe05859d03589d61cf0f69de9e7678}{clk}}
+\begin{DoxyCompactList}\small\item\em clock input. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{enumfifo_a1cb4b0e761fcf0e2e1ff541d6af4ebad}{rst}}
+\begin{DoxyCompactList}\small\item\em reset signal. The buffer will be set to 0 if reset. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{enumfifo_aaf4a37103205f6662b0a1d80a738adaa}{dir}}
+\item 
+\mbox{[}3\+:0\mbox{]} \mbox{\hyperlink{enumfifo_a0a60ca7138c275b0b4c6a99507b7f32b}{narrow\+\_\+port\+\_\+in}}
+\item 
+\mbox{[}7\+:0\mbox{]} \mbox{\hyperlink{enumfifo_afab6f412623dc4c22e9d8c6b98e847cd}{wide\+\_\+port\+\_\+in}}
+\item 
+reg \mbox{[}3\+:0\mbox{]} \mbox{\hyperlink{enumfifo_a94b95e7c8f83e2e7cb9865753d6bca50}{narrow\+\_\+port\+\_\+out}}
+\item 
+reg \mbox{[}7\+:0\mbox{]} \mbox{\hyperlink{enumfifo_aff07e3889d449c2cca44d3664a02aeaf}{wide\+\_\+port\+\_\+out}}
+\item 
+\mbox{\hyperlink{enumfifo_acfb9a73a88276cd8a16a0e77559171fc}{input\+\_\+valid}}
+\item 
+\mbox{\hyperlink{enumfifo_a2e34684dc888205692d0a1f9d4fbda76}{output\+\_\+enable}}
+\item 
+reg \mbox{\hyperlink{enumfifo_a6bbf9dd197f6264d333fe0505d8521eb}{input\+\_\+enable}}
+\item 
+reg \mbox{\hyperlink{enumfifo_a02360b908c47c6b5102e9597db8f51cb}{output\+\_\+valid}}
+\item 
+\mbox{\hyperlink{enumfifo_a5cb2b13451613d2af01db68febec6a50}{buffer}} reg\mbox{[}63\+:0\mbox{]}
+\item 
+\mbox{\hyperlink{enumfifo_aa0ade2ed497f56192af48cb015110e95}{width}} reg\mbox{[}56\+:0\mbox{]}
+\item 
+\mbox{\hyperlink{enumfifo_a5d5518c101413e893e36eb82384320c9}{narrow\+\_\+buffer}} reg\mbox{[}7\+:0\mbox{]}
+\item 
+\mbox{\hyperlink{enumfifo_a90a724159aa5f99c09e368ba5ed5f295}{narrow\+\_\+width}} reg\mbox{[}8\+:0\mbox{]}
+\item 
+\mbox{\hyperlink{enumfifo_a45c919098335b7a3b1089494455d9fcb}{direction}} reg
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+F\+I\+FO chip of fifferent data width with two directions. The direction will be determined when rst is set to 1. if direction is 0, data will be sent from narrow\+\_\+port to wide\+\_\+port, if direction is 1, the behavior is different. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{enumfifo_aa8122a479ce4de857afe9320219cfa5a}\label{enumfifo_aa8122a479ce4de857afe9320219cfa5a}} 
+\index{fifo@{fifo}!A\+L\+W\+A\+Y\+S\+\_\+0@{A\+L\+W\+A\+Y\+S\+\_\+0}}
+\index{A\+L\+W\+A\+Y\+S\+\_\+0@{A\+L\+W\+A\+Y\+S\+\_\+0}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{A\+L\+W\+A\+Y\+S\+\_\+0()}{ALWAYS\_0()}}
+{\footnotesize\ttfamily  {\bfseries \textcolor{vhdlchar}{ }} A\+L\+W\+A\+Y\+S\+\_\+0(\begin{DoxyParamCaption}\item[{}]{{\bfseries \textcolor{vhdlchar}{rst}}   {\em {\bfseries \textcolor{vhdlchar}{ }}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [Always Construct]}}
+
+
+
+Reset part. 
+
+the reg direction will be set to the input dir. \mbox{\Hypertarget{enumfifo_a45eb09cdeb334de587d997e4c9f2d6db}\label{enumfifo_a45eb09cdeb334de587d997e4c9f2d6db}} 
+\index{fifo@{fifo}!A\+L\+W\+A\+Y\+S\+\_\+1@{A\+L\+W\+A\+Y\+S\+\_\+1}}
+\index{A\+L\+W\+A\+Y\+S\+\_\+1@{A\+L\+W\+A\+Y\+S\+\_\+1}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{A\+L\+W\+A\+Y\+S\+\_\+1()}{ALWAYS\_1()}}
+{\footnotesize\ttfamily  {\bfseries \textcolor{vhdlchar}{ }} A\+L\+W\+A\+Y\+S\+\_\+1(\begin{DoxyParamCaption}\item[{}]{{\bfseries \textcolor{vhdlchar}{clk}}   {\em {\bfseries \textcolor{vhdlchar}{ }}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [Always Construct]}}
+
+
+
+Clock part. 
+
+if direction equals 1, narrow is input. if direction equals 0, wide is input. 
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{enumfifo_ae0fe05859d03589d61cf0f69de9e7678}\label{enumfifo_ae0fe05859d03589d61cf0f69de9e7678}} 
+\index{fifo@{fifo}!clk@{clk}}
+\index{clk@{clk}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{clk}{clk}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_ae0fe05859d03589d61cf0f69de9e7678}{clk}} \hspace{0.3cm}{\ttfamily [Input]}}
+
+
+
+clock input. 
+
+\mbox{\Hypertarget{enumfifo_a1cb4b0e761fcf0e2e1ff541d6af4ebad}\label{enumfifo_a1cb4b0e761fcf0e2e1ff541d6af4ebad}} 
+\index{fifo@{fifo}!rst@{rst}}
+\index{rst@{rst}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{rst}{rst}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a1cb4b0e761fcf0e2e1ff541d6af4ebad}{rst}} \hspace{0.3cm}{\ttfamily [Input]}}
+
+
+
+reset signal. The buffer will be set to 0 if reset. 
+
+\mbox{\Hypertarget{enumfifo_aaf4a37103205f6662b0a1d80a738adaa}\label{enumfifo_aaf4a37103205f6662b0a1d80a738adaa}} 
+\index{fifo@{fifo}!dir@{dir}}
+\index{dir@{dir}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{dir}{dir}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_aaf4a37103205f6662b0a1d80a738adaa}{dir}} \hspace{0.3cm}{\ttfamily [Input]}}
+
+\mbox{\Hypertarget{enumfifo_a0a60ca7138c275b0b4c6a99507b7f32b}\label{enumfifo_a0a60ca7138c275b0b4c6a99507b7f32b}} 
+\index{fifo@{fifo}!narrow\+\_\+port\+\_\+in@{narrow\+\_\+port\+\_\+in}}
+\index{narrow\+\_\+port\+\_\+in@{narrow\+\_\+port\+\_\+in}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{narrow\+\_\+port\+\_\+in}{narrow\_port\_in}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a0a60ca7138c275b0b4c6a99507b7f32b}{narrow\+\_\+port\+\_\+in}} \hspace{0.3cm}{\ttfamily [Input]}}
+
+\mbox{\Hypertarget{enumfifo_afab6f412623dc4c22e9d8c6b98e847cd}\label{enumfifo_afab6f412623dc4c22e9d8c6b98e847cd}} 
+\index{fifo@{fifo}!wide\+\_\+port\+\_\+in@{wide\+\_\+port\+\_\+in}}
+\index{wide\+\_\+port\+\_\+in@{wide\+\_\+port\+\_\+in}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{wide\+\_\+port\+\_\+in}{wide\_port\_in}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_afab6f412623dc4c22e9d8c6b98e847cd}{wide\+\_\+port\+\_\+in}} \hspace{0.3cm}{\ttfamily [Input]}}
+
+\mbox{\Hypertarget{enumfifo_a94b95e7c8f83e2e7cb9865753d6bca50}\label{enumfifo_a94b95e7c8f83e2e7cb9865753d6bca50}} 
+\index{fifo@{fifo}!narrow\+\_\+port\+\_\+out@{narrow\+\_\+port\+\_\+out}}
+\index{narrow\+\_\+port\+\_\+out@{narrow\+\_\+port\+\_\+out}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{narrow\+\_\+port\+\_\+out}{narrow\_port\_out}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a94b95e7c8f83e2e7cb9865753d6bca50}{narrow\+\_\+port\+\_\+out}} \hspace{0.3cm}{\ttfamily [Output]}}
+
+\mbox{\Hypertarget{enumfifo_aff07e3889d449c2cca44d3664a02aeaf}\label{enumfifo_aff07e3889d449c2cca44d3664a02aeaf}} 
+\index{fifo@{fifo}!wide\+\_\+port\+\_\+out@{wide\+\_\+port\+\_\+out}}
+\index{wide\+\_\+port\+\_\+out@{wide\+\_\+port\+\_\+out}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{wide\+\_\+port\+\_\+out}{wide\_port\_out}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_aff07e3889d449c2cca44d3664a02aeaf}{wide\+\_\+port\+\_\+out}} \hspace{0.3cm}{\ttfamily [Output]}}
+
+\mbox{\Hypertarget{enumfifo_acfb9a73a88276cd8a16a0e77559171fc}\label{enumfifo_acfb9a73a88276cd8a16a0e77559171fc}} 
+\index{fifo@{fifo}!input\+\_\+valid@{input\+\_\+valid}}
+\index{input\+\_\+valid@{input\+\_\+valid}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{input\+\_\+valid}{input\_valid}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_acfb9a73a88276cd8a16a0e77559171fc}{input\+\_\+valid}} \hspace{0.3cm}{\ttfamily [Input]}}
+
+\mbox{\Hypertarget{enumfifo_a2e34684dc888205692d0a1f9d4fbda76}\label{enumfifo_a2e34684dc888205692d0a1f9d4fbda76}} 
+\index{fifo@{fifo}!output\+\_\+enable@{output\+\_\+enable}}
+\index{output\+\_\+enable@{output\+\_\+enable}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{output\+\_\+enable}{output\_enable}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a2e34684dc888205692d0a1f9d4fbda76}{output\+\_\+enable}} \hspace{0.3cm}{\ttfamily [Input]}}
+
+\mbox{\Hypertarget{enumfifo_a6bbf9dd197f6264d333fe0505d8521eb}\label{enumfifo_a6bbf9dd197f6264d333fe0505d8521eb}} 
+\index{fifo@{fifo}!input\+\_\+enable@{input\+\_\+enable}}
+\index{input\+\_\+enable@{input\+\_\+enable}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{input\+\_\+enable}{input\_enable}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a6bbf9dd197f6264d333fe0505d8521eb}{input\+\_\+enable}} \hspace{0.3cm}{\ttfamily [Output]}}
+
+\mbox{\Hypertarget{enumfifo_a02360b908c47c6b5102e9597db8f51cb}\label{enumfifo_a02360b908c47c6b5102e9597db8f51cb}} 
+\index{fifo@{fifo}!output\+\_\+valid@{output\+\_\+valid}}
+\index{output\+\_\+valid@{output\+\_\+valid}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{output\+\_\+valid}{output\_valid}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a02360b908c47c6b5102e9597db8f51cb}{output\+\_\+valid}} \hspace{0.3cm}{\ttfamily [Output]}}
+
+\mbox{\Hypertarget{enumfifo_a5cb2b13451613d2af01db68febec6a50}\label{enumfifo_a5cb2b13451613d2af01db68febec6a50}} 
+\index{fifo@{fifo}!buffer@{buffer}}
+\index{buffer@{buffer}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{buffer}{buffer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a5cb2b13451613d2af01db68febec6a50}{buffer}} \hspace{0.3cm}{\ttfamily [Signal]}}
+
+\mbox{\Hypertarget{enumfifo_aa0ade2ed497f56192af48cb015110e95}\label{enumfifo_aa0ade2ed497f56192af48cb015110e95}} 
+\index{fifo@{fifo}!width@{width}}
+\index{width@{width}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{width}{width}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_aa0ade2ed497f56192af48cb015110e95}{width}} \hspace{0.3cm}{\ttfamily [Signal]}}
+
+\mbox{\Hypertarget{enumfifo_a5d5518c101413e893e36eb82384320c9}\label{enumfifo_a5d5518c101413e893e36eb82384320c9}} 
+\index{fifo@{fifo}!narrow\+\_\+buffer@{narrow\+\_\+buffer}}
+\index{narrow\+\_\+buffer@{narrow\+\_\+buffer}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{narrow\+\_\+buffer}{narrow\_buffer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a5d5518c101413e893e36eb82384320c9}{narrow\+\_\+buffer}} \hspace{0.3cm}{\ttfamily [Signal]}}
+
+\mbox{\Hypertarget{enumfifo_a90a724159aa5f99c09e368ba5ed5f295}\label{enumfifo_a90a724159aa5f99c09e368ba5ed5f295}} 
+\index{fifo@{fifo}!narrow\+\_\+width@{narrow\+\_\+width}}
+\index{narrow\+\_\+width@{narrow\+\_\+width}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{narrow\+\_\+width}{narrow\_width}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a90a724159aa5f99c09e368ba5ed5f295}{narrow\+\_\+width}} \hspace{0.3cm}{\ttfamily [Signal]}}
+
+\mbox{\Hypertarget{enumfifo_a45c919098335b7a3b1089494455d9fcb}\label{enumfifo_a45c919098335b7a3b1089494455d9fcb}} 
+\index{fifo@{fifo}!direction@{direction}}
+\index{direction@{direction}!fifo@{fifo}}
+\subsubsection{\texorpdfstring{direction}{direction}}
+{\footnotesize\ttfamily \mbox{\hyperlink{enumfifo_a45c919098335b7a3b1089494455d9fcb}{direction}} \hspace{0.3cm}{\ttfamily [Signal]}}
+
+
+
+The documentation for this module was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Final\+Elec.\+srcs/sources\+\_\+1/new/\mbox{\hyperlink{fifo_8v}{fifo.\+v}}\end{DoxyCompactItemize}
