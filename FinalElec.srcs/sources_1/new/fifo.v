@@ -10,21 +10,18 @@
  */
 module fifo(
   input clk, rst, dir,
-  inout [3:0] narrow_port,
-  inout [7:0] wide_port,
+  input [3:0] narrow_port_in,
+  input [7:0] wide_port_in,
+  output reg [3:0] narrow_port_out,
+  output reg [7:0] wide_port_out,
   input input_valid, output_enable,
   output reg input_enable, output_valid
 );
   reg [63:0] buffer;
-  reg [64:0] width;
+  reg [56:0] width;
   reg [7:0] narrow_buffer;
   reg [8:0] narrow_width;
   reg direction;
-  reg [3:0] narrow_port_data;
-  reg [7:0] wide_port_data;
-
-  assign narrow_port = narrow_port_data;
-  assign wide_port = wide_port_data;
 
   /**
    * Reset part
@@ -37,6 +34,8 @@ module fifo(
     width <= 1;
     narrow_buffer <= 0;
     narrow_width <= 1;
+    narrow_port_out <= 0;
+    wide_port_out <= 0;
   end
 
   /**
@@ -50,54 +49,67 @@ module fifo(
     if (direction) begin
       if (input_valid & input_enable) begin
         narrow_buffer <= narrow_buffer >> 4;
-        narrow_buffer[7:4] <= narrow_port;
+        narrow_buffer[7:4] <= narrow_port_in;
         narrow_width <= narrow_width << 4;
         if (narrow_width[8]) begin
-          buffer <= buffer << 8;
           width <= width << 8;
+          buffer <= buffer << 8;
           buffer[7:0] <= narrow_buffer;
           narrow_buffer <= 0;
           narrow_width <= 1;
-          if (width[64]) begin
+          if (width[56]) begin
             input_enable <= 0;
             output_valid <= 1;
             width <= 1;
           end
         end
+        narrow_port_out <= 0;
+        wide_port_out <= 0;
       end else if (output_valid & output_enable) begin
-        wide_port_data <= buffer[63:56];
+        wide_port_out <= buffer[63:56];
         buffer <= buffer << 8;
         width <= width << 8;
-        if (width[64]) begin
+        if (width[56]) begin
           input_enable <= 1;
           output_valid <= 0;
           width <= 1;
         end
+      end else begin
+        narrow_port_out <= 0;
+        wide_port_out <= 0;
       end
+      narrow_port_out <= 0;
     end else begin
       if (input_valid & input_enable) begin
         buffer <= buffer << 8;
         width <= width << 8;
-        buffer[7:0] <= wide_port;
-        if (width[64]) begin
+        buffer[7:0] <= wide_port_in;
+        if (width[56]) begin
           input_enable <= 0;
           output_valid <= 1;
           width <= 1;
         end
+        narrow_port_out <= 0;
+        wide_port_out <= 0;
       end else if (output_valid & output_enable) begin
-        if (narrow_width[8]) begin
-          narrow_buffer <= buffer[63:56];
+        if (narrow_width[0]) begin
+          narrow_buffer = buffer[63:56];
+          narrow_width = 9'b100000000;
           buffer <= buffer << 8;
           width <= width << 8;
+          if (width[56]) begin
+            input_enable <= 1;
+            output_valid <= 0;
+            width <= 1;
+          end
         end
-        narrow_port_data <= narrow_buffer[3:0];
+        narrow_port_out <= narrow_buffer[3:0];
         narrow_buffer <= narrow_buffer >> 4;
-        narrow_width <= narrow_width << 4;
-        if (width[64]) begin
-          input_enable <= 1;
-          output_valid <= 0;
-          width <= 1;
-        end
+        narrow_width <= narrow_width >> 4;
+        wide_port_out <= 0;
+      end else begin
+        narrow_port_out <= 0;
+        wide_port_out <= 0;
       end
     end
   end
