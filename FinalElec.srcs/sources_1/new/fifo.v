@@ -17,21 +17,33 @@ module fifo(
   //% The buffer will be set to 0 if reset. direction will be changed.
   //% reset signal.
   input rst,
-  //% if is 1, data will flow from 
+  //% if is 0, data will flow from wide to narrow. if is 1, data will flow from narrow to wide.
   //% controls the direction of fifo.
   input dir,
+  //% the input narrow port with 4 bits.
   input [3:0] narrow_port_in,
+  //% the input wide port with 8 bits.
   input [7:0] wide_port_in,
+  //% the output narrow port with 4 bits.
   output reg [3:0] narrow_port_out,
+  //% the output wide port with 8 bits.
   output reg [7:0] wide_port_out,
+  //% indicating whether enable input.
   input input_valid,
+  //% indicating whether enable output.
   input output_enable,
+  //% indicate whether the input could be used.
   output reg input_enable,
+  //% indicate whether the output could be used.
   output reg output_valid
 );
+  //% the buffer storage.
   reg [63:0] buffer;
+  //% indicate the position recent reading.
   reg [56:0] width;
+  //% the temprary buffer storaging some part of data.
   reg [7:0] narrow_buffer;
+  //% the position of temprary storage.
   reg [8:0] narrow_width;
   reg direction;
 
