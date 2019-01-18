@@ -1,27 +1,17 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company:
-// Engineer:
-//
-// Create Date: 01/16/2019 08:00:57 PM
-// Design Name:
-// Module Name: dma
-// Project Name:
-// Target Devices:
-// Tool Versions:
-// Description:
-//
-// Dependencies:
-//
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-//
-//////////////////////////////////////////////////////////////////////////////////
+//% @file fifo.v
+//% @brief DMA模块文件.
+//% 
+//% @author Yang Chengyuan<yangchenyuan17@mails.ucas.ac.cn>,
+//% @version 0.1.0
+//% @date 2019-01-08
 
+`timescale 1ns / 1ps
 
 module dma(
-    input clk, reset, dir,
+    //% 时钟信号输入，内部状态将在每次时钟周期后改变。
+    input clk,
+    input reset,
+    input dir,
     input [3:0] mem_data_out,
     input [7:0] cpu_data_out,
     input mem_to_dma_valid, mem_to_dma_enable, cpu_to_dma_valid, cpu_to_dma_enable,
@@ -45,9 +35,9 @@ module dma(
     wire input_enable1, input_enable2, output_valid1, output_valid2;
     wire [6:0] blk1, blk2;
 
-    assign data_in = (direction == cpu_to_mem)? cpu_data_out: {4'b0, mem_data_out};
-    assign input_valid = (direction == cpu_to_mem)? cpu_to_dma_valid: mem_to_dma_valid;
-    assign output_enable = (direction == cpu_to_mem)? mem_to_dma_enable: cpu_to_dma_enable;
+    assign data_in = (direction == cpu_to_mem) ? cpu_data_out: {4'b0, mem_data_out};
+    assign input_valid = (direction == cpu_to_mem) ? cpu_to_dma_valid: mem_to_dma_valid;
+    assign output_enable = (direction == cpu_to_mem) ? mem_to_dma_enable: cpu_to_dma_enable;
     assign input_valid1 = input_valid & !flag;
     assign input_valid2 = input_valid & flag;
     assign output_enable1 = output_enable & flag;
@@ -75,8 +65,8 @@ module dma(
         end
     end
 
-    assign cpu_data_in = (flag? data_out1: data_out2);
-    assign mem_data_in = (flag? data_out1[3:0]: data_out2[3:0]);
+    assign cpu_data_in = (flag ? data_out1: data_out2);
+    assign mem_data_in = (flag ? data_out1[3:0]: data_out2[3:0]);
 
     assign dma_to_mem_enable = (direction == mem_to_cpu) && (flag? input_enable2: input_enable1);
     assign dma_to_cpu_valid = (direction == mem_to_cpu) && (flag? output_valid1: output_valid2);
