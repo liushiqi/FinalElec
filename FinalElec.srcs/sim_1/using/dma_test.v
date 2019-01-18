@@ -45,6 +45,8 @@ module dma_test();
         clk = 0; reset = 1; dir = 1;
         mem_to_dma_valid = 0; mem_to_dma_enable = 0;
         cpu_to_dma_valid = 0; cpu_to_dma_enable = 0;
+        mem_data_out = 0;
+        cpu_data_out = 1;
         #1 reset = 0;
     end
 

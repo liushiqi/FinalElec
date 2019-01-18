@@ -39,8 +39,6 @@ module fifo_4_to_8(
         data_out = 0;
         input_enable = 1;
         output_valid = 0;
-        buffer = 0;
-        blk = 0;
     end
 
     always @(posedge clk) begin	// detect whether the buffer becomes full/empty; change the flag of direction
