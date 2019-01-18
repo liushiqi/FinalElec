@@ -1,28 +1,26 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Company:
+// Engineer:
+//
 // Create Date: 01/16/2019 08:51:15 PM
-// Design Name: 
+// Design Name:
 // Module Name: dma_tb
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
+// Project Name:
+// Target Devices:
+// Tool Versions:
+// Description:
+//
+// Dependencies:
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module dma_tb(
-
-    );
+module dma_test();
     reg clk, reset, dir, mem_to_dma_valid, mem_to_dma_enable, cpu_to_dma_valid, cpu_to_dma_enable;
     reg [3:0] mem_data_out;
     reg [7:0] cpu_data_out;
@@ -44,15 +42,15 @@ module dma_tb(
 
     always #10 clk = ~clk;
     initial begin
-      clk = 0; reset = 1; dir = 1;
-      mem_to_dma_valid = 0; mem_to_dma_enable = 0;
-      cpu_to_dma_valid = 0; cpu_to_dma_enable = 0;
-      #1 reset = 0;
+        clk = 0; reset = 1; dir = 1;
+        mem_to_dma_valid = 0; mem_to_dma_enable = 0;
+        cpu_to_dma_valid = 0; cpu_to_dma_enable = 0;
+        #1 reset = 0;
     end
 
     always @(posedge clk) begin
-      {mem_to_dma_valid, mem_to_dma_enable, cpu_to_dma_valid, cpu_to_dma_enable} = {$random};
-      mem_data_out = {$random};
-      cpu_data_out = {$random};
+        {mem_to_dma_valid, mem_to_dma_enable, cpu_to_dma_valid, cpu_to_dma_enable} = {$random};
+        mem_data_out = {$random};
+        cpu_data_out = {$random};
     end
 endmodule
