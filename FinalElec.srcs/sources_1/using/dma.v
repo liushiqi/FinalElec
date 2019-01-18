@@ -29,42 +29,39 @@ module dma(
     output [7:0] cpu_data_in,
     output dma_to_mem_enable, dma_to_mem_valid, dma_to_cpu_enable, dma_to_cpu_valid,
     output [63:0] buff1, buff2,
-    output [7:0] Data_out1, Data_out2
+    output [7:0] data_out1, data_out2
 );
 
     parameter mem_to_cpu = 0, cpu_to_mem = 1, buff_size = 64;
-    reg direction, flag;    // flag == 0: input-->BUF1, BUF2-->output; flag == 1: input-->BUF2, BUF1-->output
-    always @(*) begin
-        if (reset) begin
-            direction = dir;
-            flag = 0;
-        end
+    reg direction, flag;    // flag == 0: input-->buffer1, buffer2-->output; flag == 1: input-->buffer2, buffer1-->output
+
+    always @(posedge reset) begin
+        direction = dir;
+        flag = 0;
     end
 
-    wire [7:0] Data_in;
-    wire Input_valid, Input_valid1, Input_valid2, Output_enable, Output_enable1, Output_enable2;
-    wire Input_enable1, Input_enable2, Output_valid1, Output_valid2;
+    wire [7:0] data_in;
+    wire input_valid, input_valid1, input_valid2, output_enable, output_enable1, output_enable2;
+    wire input_enable1, input_enable2, output_valid1, output_valid2;
     wire [6:0] blk1, blk2;
 
-    assign Data_in = (direction == cpu_to_mem)? cpu_data_out: {4'b0, mem_data_out};
-    assign Input_valid = (direction == cpu_to_mem)? cpu_to_dma_valid: mem_to_dma_valid;
-    assign Output_enable = (direction == cpu_to_mem)? mem_to_dma_enable: cpu_to_dma_enable;
-    assign Input_valid1 = Input_valid & !flag;
-    assign Input_valid2 = Input_valid & flag;
-    assign Output_enable1 = Output_enable & flag;
-    assign Output_enable2 = Output_enable & !flag;
+    assign data_in = (direction == cpu_to_mem)? cpu_data_out: {4'b0, mem_data_out};
+    assign input_valid = (direction == cpu_to_mem)? cpu_to_dma_valid: mem_to_dma_valid;
+    assign output_enable = (direction == cpu_to_mem)? mem_to_dma_enable: cpu_to_dma_enable;
+    assign input_valid1 = input_valid & !flag;
+    assign input_valid2 = input_valid & flag;
+    assign output_enable1 = output_enable & flag;
+    assign output_enable2 = output_enable & !flag;
 
     buffer
-    BUF1(
-        .clk(clk), .reset(reset), .dir(direction), .Data_in(Data_in), .Input_valid(Input_valid1), .Output_enable(Output_enable1),
-        .Data_out(Data_out1), .Input_enable(Input_enable1), .Output_valid(Output_valid1), .blk(blk1),
-        .buff(buff1)
-    ),
-    BUF2(
-        .clk(clk), .reset(reset), .dir(direction), .Data_in(Data_in), .Input_valid(Input_valid2), .Output_enable(Output_enable2),
-        .Data_out(Data_out2), .Input_enable(Input_enable2), .Output_valid(Output_valid2), .blk(blk2),
-        .buff(buff2)
-    );
+    buffer1(
+        .clk(clk), .reset(reset), .dir(direction), .data_in(data_in), .input_valid(input_valid1), .output_enable(output_enable1),
+        .data_out(data_out1), .input_enable(input_enable1), .output_valid(output_valid1), .blk(blk1),
+        .buffer(buff1)),
+    buffer2(
+        .clk(clk), .reset(reset), .dir(direction), .data_in(data_in), .input_valid(input_valid2), .output_enable(output_enable2),
+        .data_out(data_out2), .input_enable(input_enable2), .output_valid(output_valid2), .blk(blk2),
+        .buffer(buff2));
 
     always @(posedge clk) begin
         if (!flag) begin
@@ -78,12 +75,12 @@ module dma(
         end
     end
 
-    assign cpu_data_in = (flag? Data_out1: Data_out2);
-    assign mem_data_in = (flag? Data_out1[3:0]: Data_out2[3:0]);
+    assign cpu_data_in = (flag? data_out1: data_out2);
+    assign mem_data_in = (flag? data_out1[3:0]: data_out2[3:0]);
 
-    assign dma_to_mem_enable = (direction == mem_to_cpu) && (flag? Input_enable2: Input_enable1);
-    assign dma_to_cpu_valid = (direction == mem_to_cpu) && (flag? Output_valid1: Output_valid2);
-    assign dma_to_cpu_enable = (direction == cpu_to_mem) && (flag? Input_enable2: Input_enable1);
-    assign dma_to_mem_valid = (direction == cpu_to_mem) && (flag? Output_valid1: Output_valid2);
+    assign dma_to_mem_enable = (direction == mem_to_cpu) && (flag? input_enable2: input_enable1);
+    assign dma_to_cpu_valid = (direction == mem_to_cpu) && (flag? output_valid1: output_valid2);
+    assign dma_to_cpu_enable = (direction == cpu_to_mem) && (flag? input_enable2: input_enable1);
+    assign dma_to_mem_valid = (direction == cpu_to_mem) && (flag? output_valid1: output_valid2);
 
 endmodule

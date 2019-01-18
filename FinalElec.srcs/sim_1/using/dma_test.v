@@ -25,7 +25,7 @@ module dma_test();
     reg [3:0] mem_data_out;
     reg [7:0] cpu_data_out;
     wire [3:0] mem_data_in;
-    wire [7:0] cpu_data_in, Data_out1, Data_out2;
+    wire [7:0] cpu_data_in, data_out1, data_out2;
     wire dma_to_mem_enable, dma_to_mem_valid, dma_to_cpu_enable, dma_to_cpu_valid;
     wire [63:0] buff1, buff2;
 
@@ -37,7 +37,7 @@ module dma_test();
         .dma_to_mem_enable(dma_to_mem_enable), .dma_to_mem_valid(dma_to_mem_valid),
         .dma_to_cpu_enable(dma_to_cpu_enable), .dma_to_cpu_valid(dma_to_cpu_valid),
         .buff1(buff1), .buff2(buff2),
-        .Data_out1(Data_out1), .Data_out2(Data_out2)
+        .data_out1(data_out1), .data_out2(data_out2)
     );
 
     always #10 clk = ~clk;

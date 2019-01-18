@@ -31,13 +31,19 @@ module fifo_4_to_8(
 );
     reg flag;
     parameter in = 0, out = 1, buff_size = 64, out_size = 8, in_size = 4;
-    always @ (*)
-        if (reset) begin
-            blk = 0;
-            buffer = 0;
-            flag = in;
-        end
-    always @ (*) begin	// detect whether the buffer becomes full/empty; change the flag of direction
+
+    always @(posedge reset) begin
+        blk = 0;
+        buffer = 0;
+        flag = in;
+        data_out = 0;
+        input_enable = 1;
+        output_valid = 0;
+        buffer = 0;
+        blk = 0;
+    end
+
+    always @(posedge clk) begin	// detect whether the buffer becomes full/empty; change the flag of direction
         if (flag == in) begin
             if (blk == buff_size) begin
                 flag = out;
@@ -48,7 +54,8 @@ module fifo_4_to_8(
             end
         end
     end
-    always @ (posedge clk) begin
+
+    always @(posedge clk) begin
         if (flag == in) begin
             if (input_valid) begin
                 input_enable = 1; output_valid = 0;
@@ -82,13 +89,17 @@ module fifo_8_to_4(
 );
     reg flag;
     parameter in = 0, out = 1, buff_size = 64, out_size = 4, in_size = 8;
-    always @ (*)
-        if (reset) begin
-            blk = 0;
-            buffer = 0;
-            flag = in;
-        end
-    always @ (*) begin	// detect whether the buffer becomes full/empty; change the flag of direction
+
+    always @(posedge reset) begin
+        blk = 0;
+        buffer = 0;
+        flag = in;
+        data_out = 0;
+        input_enable = 1;
+        output_valid = 0;
+    end
+
+    always @(posedge clk) begin	// detect whether the buffer becomes full/empty; change the flag of direction
         if (flag == in) begin
             if (blk == buff_size) begin
                 flag = out;
@@ -99,6 +110,7 @@ module fifo_8_to_4(
             end
         end
     end
+
     always @ (posedge clk) begin
         if (flag == in) begin
             if (input_valid) begin
