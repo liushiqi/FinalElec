@@ -1,37 +1,44 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company:
-// Engineer:
-//
-// Create Date: 01/16/2019 04:20:58 PM
-// Design Name:
-// Module Name: fifo_y
-// Project Name:
-// Target Devices:
-// Tool Versions:
-// Description:
-//
-// Dependencies:
-//
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-//
-//////////////////////////////////////////////////////////////////////////////////
-
-
+//% 4位输入8位输出的fifo
 module fifo_4_to_8(
-    input clk, reset,
+    //% 时钟接口
+    input clk，
+    //% fifo的时钟传入
+    //% 重置接口
+    input reset,
+    //% 重置fifo内部数据
+    //% 数据传入通道
     input [3:0] data_in,
-    input input_valid, output_enable,
+    //% 数据传入
+    //% 传入引脚
+    input input_valid，
+    //% 来自外部的有效信号，用于控制数据传入
+    //% 传入引脚
+    input output_enable,
+    //% 来自外部的有效信号，用于控制数据传出
+    //% 数据传出通道
     output reg [7:0] data_out,
-    output reg input_enable, output_valid,
+    //% 用于数据传出
+    //% 传出引脚
+    output reg input_enable,
+    //% 来自fifo的信号，用于表示可以接受数据
+    //% 传出引脚
+    output reg output_valid,
+    //% 来自fifo的信号，用于表示可以传出数据
+    //% buffer
     output reg [63:0] buffer,
+    //% buffer
+    //% 数据指针
     output reg [6:0] blk
+    //% 用于标记数据顶端的指针性质变量
 );
+    //% 翻转指示变量
     reg flag;
+    //% 用于翻转fifo模块的输入/输出模式
+    //% 状态指标
     parameter in = 0, out = 1, buff_size = 64, out_size = 8, in_size = 4;
-
+    //% 记录了状态信息，位宽信息
+    //% reset部分，用于重置fifo的数据
     always @(posedge reset) begin
         blk = 0;
         buffer = 0;
@@ -40,9 +47,9 @@ module fifo_4_to_8(
         input_enable = 1;
         output_valid = 0;
     end
-
-    always @(posedge clk) begin	// detect whether the buffer becomes full/empty; change the flag of direction
-        if (flag == in) begin
+    //% 读取指针信息，用于翻转输入/输出状态
+    always @(posedge clk) begin
+            if (flag == in) begin
             if (blk == buff_size) begin
                 flag = out;
             end
@@ -52,7 +59,7 @@ module fifo_4_to_8(
             end
         end
     end
-
+    //% 数据读写部分
     always @(posedge clk) begin
         if (flag == in) begin
             if (input_valid) begin
@@ -75,19 +82,46 @@ module fifo_4_to_8(
         end
     end
 endmodule
-
+//% 8位输入4位输出的fifo
 module fifo_8_to_4(
-    input clk, reset,
+    //% 时钟接口
+    input clk，
+    //% fifo的时钟传入
+    //% 重置接口
+    input reset,
+    //% 重置fifo内部数据
+    //% 数据传入通道
     input [7:0] data_in,
-    input input_valid, output_enable,
+    //% 数据传入
+    //% 传入引脚
+    input input_valid，
+    //% 来自外部的有效信号，用于控制数据传入
+    //% 传入引脚
+    input output_enable,
+    //% 来自外部的有效信号，用于控制数据传出
+    //% 数据传出通道
     output reg [3:0] data_out,
-    output reg input_enable, output_valid,
+    //% 用于数据传出
+    //% 传出引脚
+    output reg input_enable,
+    //% 来自fifo的信号，用于表示可以接受数据
+    //% 传出引脚
+    output reg output_valid,
+    //% 来自fifo的信号，用于表示可以传出数据
+    //% buffer
     output reg [63:0] buffer,
+    //% buffer
+    //% 数据指针
     output reg [6:0] blk
+    //% 用于标记数据顶端的指针性质变量
 );
+    //% 翻转指示变量
     reg flag;
+    //% 用于翻转fifo模块的输入/输出模式
+    //% 状态指标
     parameter in = 0, out = 1, buff_size = 64, out_size = 4, in_size = 8;
-
+    //% 记录了状态信息，位宽信息
+    //% reset部分，用于重置fifo的数据
     always @(posedge reset) begin
         blk = 0;
         buffer = 0;
@@ -96,8 +130,9 @@ module fifo_8_to_4(
         input_enable = 1;
         output_valid = 0;
     end
-
-    always @(posedge clk) begin	// detect whether the buffer becomes full/empty; change the flag of direction
+    
+    //% 读取指针信息，用于翻转输入/输出状态
+    always @(posedge clk) begin	
         if (flag == in) begin
             if (blk == buff_size) begin
                 flag = out;
@@ -108,7 +143,8 @@ module fifo_8_to_4(
             end
         end
     end
-
+    
+    //% 数据读写部分
     always @ (posedge clk) begin
         if (flag == in) begin
             if (input_valid) begin
